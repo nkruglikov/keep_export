@@ -73,9 +73,12 @@ def main():
     keep = gkeepapi.Keep()
     auth(keep)
     exported = keep.findLabel("exported")
+    today = datetime.datetime.now().date().isoformat()
 
     groups = get_daily_groups(keep)
     for date, group in groups:
+        if date == today:
+            continue
         print(f"Processing {date}...")
         title = f"Keep {date}.md"
         content = render_group(group)
